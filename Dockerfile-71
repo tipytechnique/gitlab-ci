@@ -9,7 +9,7 @@ RUN apt-get update && \
         libjpeg-dev \
         libssl-dev \
         libmcrypt-dev \
-	&& apt-get clean
+	&& apt-get clean \
 	&& curl --version
 
 RUN docker-php-ext-install \
