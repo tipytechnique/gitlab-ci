@@ -9,21 +9,26 @@ RUN apt-get update && \
 	libz-dev \
 	libjpeg-dev \
 	libssl-dev \
-	libmycrypt-dev \
+	libmcrypt-dev \
 	sshpass \
 
-#Install Xdebug
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-
-#Install ZIP
-RUN pecl install zip && docker-php-ext-enable zip
-
-#Install the PHP Mycrypt Extension
-RUN docker-php-ext-install mycrypt
-
-#Install the PHP pdo_mysql Extension
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install \
+        mbstring \
+        curl \
+        json \
+        pdo_mysql \
+        mcrypt \
+        zip \
+        opcache \
+    && pecl install xdebug
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install bcmath \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
+    && docker-php-ext-enable zip
+    && docker-php-ext-enable xdebug
 
 #Install composer
-RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
-    && rm -rf /var/lib/apt/lists/*
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+	composer selfupdate
