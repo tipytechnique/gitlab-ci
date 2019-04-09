@@ -1,4 +1,4 @@
-FROM edbizarro/gitlab-ci-pipeline-php:7.1
+FROM php:7.1
 
 RUN apt-get update && \
         apt-get install -y \
