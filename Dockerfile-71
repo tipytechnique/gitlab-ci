@@ -7,6 +7,8 @@ RUN apt-get update && \
         libmemcached-dev \
         libz-dev \
         curl \
+        libcurl-dev \
+        libcurl4-gnutls-dev \
         libjpeg-dev \
         libssl-dev \
         libmcrypt-dev \
