@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.1-fpm
 
 RUN apt-get update && \
         apt-get install -y \
@@ -10,8 +10,8 @@ RUN apt-get update && \
         libjpeg-dev \
         libssl-dev \
         libmcrypt-dev \
-	&& apt-get clean \
-    && rm -r /var/lib/apt/lists/*
+	&& apt-get clean
+	&& curl --version
 
 RUN docker-php-ext-install \
         mbstring \
