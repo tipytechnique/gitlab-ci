@@ -1,28 +1,29 @@
-FROM php:7.2-fpm
+FROM php:7.1
 
 RUN apt-get update && \
-	apt-get install -y --no-install-recommends \
-	git \
-	curl \
-	libzip-dev \
-	libmemcached-dev \
-	libz-dev \
-	libjpeg-dev \
-	libssl-dev \
-	libmycrypt-dev \
-	sshpass \
+        apt-get install -y \
+        git \
+        libzip-dev \
+        libmemcached-dev \
+        libz-dev \
+        curl \
+        libcurl4-gnutls-dev \
+        libjpeg-dev \
+        libssl-dev \
+        libmcrypt-dev \
+	&& apt-get clean \
+	&& curl --version
 
-#Install Xdebug
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-
-#Install ZIP
-RUN pecl install zip && docker-php-ext-enable zip
-
-#Install the PHP Mycrypt Extension
-RUN docker-php-ext-install mycrypt
-
-#Install the PHP pdo_mysql Extension
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install \
+        mbstring \
+        curl \
+        json \
+        pdo_mysql \
+        zip \
+        opcache \
+    && pecl install xdebug \
+    && docker-php-ext-enable zip \
+    && docker-php-ext-enable xdebug
 
 #Install composer
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
