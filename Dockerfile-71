@@ -30,5 +30,5 @@ RUN docker-php-ext-install \
     && docker-php-ext-enable xdebug
 
 #Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-	composer selfupdate
+RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
+    && rm -rf /var/lib/apt/lists/*
