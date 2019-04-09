@@ -6,6 +6,7 @@ RUN apt-get update && \
         libzip-dev \
         libmemcached-dev \
         libz-dev \
+        curl \
         libjpeg-dev \
         libssl-dev \
         libmcrypt-dev \
